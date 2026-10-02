@@ -1,4 +1,4 @@
-package com.example.githubjetpackcompose.data
+package com.example.githubjetpackcompose.di
 
 import com.example.githubjetpackcompose.data.service.GitService
 import dagger.Module
