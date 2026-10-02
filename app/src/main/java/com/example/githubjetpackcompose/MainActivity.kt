@@ -4,44 +4,78 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.githubjetpackcompose.ui.mvi.GitIntent
+import com.example.githubjetpackcompose.ui.mvi.GitViewModel
+import com.example.githubjetpackcompose.ui.screen.RepoListScreen
+import com.example.githubjetpackcompose.ui.screen.UserScreen
 import com.example.githubjetpackcompose.ui.theme.GithubJetpackComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             GithubJetpackComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                GitApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun GitApp(viewModel: GitViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsState()
+    var selectedTab by remember { mutableIntStateOf(0) }
+    var currentUsername by remember { mutableStateOf("octocat") }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    GithubJetpackComposeTheme {
-        Greeting("Android")
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = selectedTab == 0,
+                    onClick = { selectedTab = 0 },
+                    label = { Text("User Profile") },
+                    icon = { Text("👤") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 1,
+                    onClick = {
+                        selectedTab = 1
+                        if (state.repositories == null) {
+                            viewModel.handleIntent(GitIntent.FetchUserRepositories(currentUsername))
+                        }
+                    },
+                    label = { Text("Repositories") },
+                    icon = { Text("📁") }
+                )
+            }
+        }
+    ) { innerPadding ->
+        when (selectedTab) {
+            0 -> UserScreen(
+                state = state,
+                onIntent = { viewModel.handleIntent(it) },
+                onNavigateToRepos = { username ->
+                    currentUsername = username
+                    viewModel.handleIntent(GitIntent.FetchUserRepositories(username))
+                    selectedTab = 1
+                },
+                modifier = Modifier.padding(innerPadding)
+            )
+            1 -> RepoListScreen(
+                state = state,
+                onIntent = { viewModel.handleIntent(it) },
+                initialUsername = currentUsername,
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }

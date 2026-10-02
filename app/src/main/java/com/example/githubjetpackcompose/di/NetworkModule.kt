@@ -16,6 +16,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder().build()
+    }
+
+    @Provides
+    @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com/")
