@@ -21,8 +21,6 @@ import com.example.githubjetpackcompose.ui.mvi.GitIntent
 import com.example.githubjetpackcompose.ui.mvi.GitState
 import com.example.githubjetpackcompose.ui.theme.GithubJetpackComposeTheme
 
-private val ButtonBlue = Color(0xFF1E88E5)
-private val BorderBlue = Color(0xFF1E88E5)
 
 @Composable
 fun UserScreen(
@@ -117,8 +115,8 @@ fun UserScreen(
                         singleLine = true,
                         shape = RoundedCornerShape(28.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = BorderBlue,
-                            unfocusedBorderColor = BorderBlue,
+                            focusedBorderColor = Color.Blue,
+                            unfocusedBorderColor = Color.Blue,
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
                             focusedTextColor = Color.Black,
@@ -138,7 +136,7 @@ fun UserScreen(
                             }
                         },
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = ButtonBlue),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp)
@@ -154,7 +152,7 @@ fun UserScreen(
                     if (state.isLoading) {
                         Spacer(modifier = Modifier.height(16.dp))
                         CircularProgressIndicator(
-                            color = ButtonBlue,
+                            color = Color.Blue,
                             modifier = Modifier.size(32.dp)
                         )
                     }
@@ -193,7 +191,7 @@ fun UserScreen(
                                     Button(
                                         onClick = { onNavigateToRepos(login) },
                                         shape = RoundedCornerShape(10.dp),
-                                        colors = ButtonDefaults.buttonColors(containerColor = ButtonBlue),
+                                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                                         modifier = Modifier.fillMaxWidth()
                                     ) {
                                         Row(

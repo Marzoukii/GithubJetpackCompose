@@ -163,7 +163,7 @@ fun RepoDetailScreen(
 
                                 Spacer(modifier = Modifier.height(20.dp))
 
-                                // Grid of Stats/Metrics with vector drawables
+
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceAround
