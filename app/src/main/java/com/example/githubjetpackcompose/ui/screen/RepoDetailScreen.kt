@@ -62,7 +62,12 @@ fun RepoDetailScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Text(text = "←", fontSize = 24.sp, color = Color.Black)
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_back),
+                            contentDescription = "Back",
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.dp)
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
@@ -254,7 +259,7 @@ private fun DetailStatItem(
 fun RepoDetailScreenPreview() {
     val sampleOwner = OwnerModel(
         avatar_url = "", events_url = "", followers_url = "", following_url = "",
-        gists_url = "", gravatar_id = "", html_url = "", id = 1, login = "octocat",
+        gists_url = "", gravatar_id = "", html_url = "", id = 1, login = "Marzoukii",
         node_id = "", organizations_url = "", received_events_url = "", repos_url = "",
         site_admin = false, starred_url = "", subscriptions_url = "", type = "User", url = ""
     )
@@ -265,12 +270,12 @@ fun RepoDetailScreenPreview() {
         contributors_url = "", created_at = "", default_branch = "main", deployments_url = "",
         description = "This is a sample repository description", disabled = false, downloads_url = "",
         events_url = "", fork = false, forks = 12, forks_count = 12, forks_url = "",
-        full_name = "octocat/Hello-World", git_commits_url = "", git_refs_url = "", git_tags_url = "",
+        full_name = "Marzoukii/JetapckComposeProject", git_commits_url = "", git_refs_url = "", git_tags_url = "",
         git_url = "", has_discussions = false, has_downloads = true, has_issues = true,
         has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "",
         html_url = "", id = 1, is_template = false, issue_comment_url = "", issue_events_url = "",
         issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "",
-        license = null, merges_url = "", milestones_url = "", mirror_url = null, name = "Hello-World",
+        license = null, merges_url = "", milestones_url = "", mirror_url = null, name = "JetapckComposeProject",
         network_count = 0, node_id = "", notifications_url = "", open_issues = 3, open_issues_count = 3,
         owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "",
         size = 120, ssh_url = "", stargazers_count = 42, stargazers_url = "", statuses_url = "",
@@ -284,8 +289,8 @@ fun RepoDetailScreenPreview() {
         RepoDetailScreen(
             state = GitState(repositoryDetails = mockDetails),
             onIntent = {},
-            username = "octocat",
-            repoName = "Hello-World",
+            username = "Marzoukii",
+            repoName = "Jetpack-ComposeProject",
             onBack = {}
         )
     }

@@ -36,7 +36,6 @@ fun UserScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        // Background image drawable
         Image(
             painter = painterResource(id = R.drawable.bg_login),
             contentDescription = null,
@@ -52,7 +51,7 @@ fun UserScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // GitHub Logo & Title
+
             Image(
                 painter = painterResource(id = R.drawable.ic_github),
                 contentDescription = "GitHub Logo",
@@ -68,7 +67,6 @@ fun UserScreen(
 
             Spacer(modifier = Modifier.height(36.dp))
 
-            // Login Card
             Card(
                 shape = RoundedCornerShape(20.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -98,7 +96,6 @@ fun UserScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Rounded Outlined Text Field
                     OutlinedTextField(
                         value = username,
                         onValueChange = { username = it },
@@ -134,7 +131,6 @@ fun UserScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Login Button
                     Button(
                         onClick = {
                             if (username.isNotBlank()) {

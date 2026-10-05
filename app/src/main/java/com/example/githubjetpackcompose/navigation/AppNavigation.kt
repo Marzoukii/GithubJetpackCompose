@@ -52,6 +52,7 @@ fun AppNavigation(
                 state = state,
                 onIntent = onIntent,
                 initialUsername = route.username,
+                onBack = { navController.popBackStack() },
                 onRepoClick = { repoName ->
                     navController.navigate(RepoDetail(username = route.username, repoName = repoName))
                 }

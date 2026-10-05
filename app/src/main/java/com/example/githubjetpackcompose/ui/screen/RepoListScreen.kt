@@ -34,6 +34,7 @@ fun RepoListScreen(
     onIntent: (GitIntent) -> Unit,
     modifier: Modifier = Modifier,
     initialUsername: String = "",
+    onBack: () -> Unit = {},
     onRepoClick: (String) -> Unit = {}
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -49,30 +50,47 @@ fun RepoListScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Search Input Bar matching screenshot
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            placeholder = {
-                Text(
-                    text = "Search",
-                    color = Color.Gray.copy(alpha = 0.6f)
+        // Top Row with Back Button and Search Bar
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = onBack,
+                modifier = Modifier.padding(end = 4.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_back),
+                    contentDescription = "Back",
+                    tint = Color.Black,
+                    modifier = Modifier.size(24.dp)
                 )
-            },
-            singleLine = true,
-            shape = RoundedCornerShape(8.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = BorderPurple,
-                unfocusedBorderColor = BorderPurple,
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        )
+            }
+
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = {
+                    Text(
+                        text = "Search",
+                        color = Color.Gray.copy(alpha = 0.6f)
+                    )
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = BorderPurple,
+                    unfocusedBorderColor = BorderPurple,
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black
+                ),
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp)
+            )
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -191,7 +209,7 @@ fun RepoListScreenPreview() {
         gravatar_id = "",
         html_url = "",
         id = 1,
-        login = "octocat",
+        login = "Marzoukii",
         node_id = "",
         organizations_url = "",
         received_events_url = "",
@@ -204,16 +222,16 @@ fun RepoListScreenPreview() {
     )
     val mockRepos = listOf(
         ListReposDataItemModel(
-            id = 1, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "octocat/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
+            id = 1, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "Marzoukii/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
         ),
         ListReposDataItemModel(
-            id = 2, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "octocat/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
+            id = 2, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "Marzoukii/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
         ),
         ListReposDataItemModel(
-            id = 3, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "octocat/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
+            id = 3, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "Marzoukii/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
         ),
         ListReposDataItemModel(
-            id = 4, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "octocat/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
+            id = 4, name = "Test", allow_forking = true, archive_url = "", archived = false, assignees_url = "", blobs_url = "", branches_url = "", clone_url = "", collaborators_url = "", comments_url = "", commits_url = "", compare_url = "", contents_url = "", contributors_url = "", created_at = "", default_branch = "main", deployments_url = "", description = null, disabled = false, downloads_url = "", events_url = "", fork = false, forks = 0, forks_count = 0, forks_url = "", full_name = "Marzoukii/Test", git_commits_url = "", git_refs_url = "", git_tags_url = "", git_url = "", has_discussions = false, has_downloads = true, has_issues = true, has_pages = false, has_projects = true, has_wiki = true, homepage = null, hooks_url = "", html_url = "", is_template = false, issue_comment_url = "", issue_events_url = "", issues_url = "", keys_url = "", labels_url = "", language = "Kotlin", languages_url = "", license = null, merges_url = "", milestones_url = "", mirror_url = null, node_id = "", notifications_url = "", open_issues = 0, open_issues_count = 0, owner = sampleOwner, private = false, pulls_url = "", pushed_at = "", releases_url = "", size = 100, ssh_url = "", stargazers_count = 5, stargazers_url = "", statuses_url = "", subscribers_url = "", subscription_url = "", svn_url = "", tags_url = "", teams_url = "", topics = emptyList(), trees_url = "", updated_at = "", url = "", visibility = "public", watchers = 0, watchers_count = 0, web_commit_signoff_required = false
         )
     )
     GithubJetpackComposeTheme {
