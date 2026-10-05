@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/src/main/java/com/example/githubjetpackcompose/ui/repo/RepoListScreen.kt
+app/src/main/java/com/example/githubjetpackcompose/ui/user/UserScreen.kt

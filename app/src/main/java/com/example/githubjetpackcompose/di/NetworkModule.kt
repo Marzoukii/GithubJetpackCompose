@@ -1,4 +1,4 @@
-package com.example.githubjetpackcompose.data
+package com.example.githubjetpackcompose.di
 
 import com.example.githubjetpackcompose.data.service.GitService
 import dagger.Module
@@ -13,6 +13,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder().build()
+    }
 
     @Provides
     @Singleton
