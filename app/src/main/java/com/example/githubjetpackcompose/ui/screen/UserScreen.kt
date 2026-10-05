@@ -98,7 +98,7 @@ fun UserScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Rounded Outlined Text Field with person icon
+                    // Rounded Outlined Text Field
                     OutlinedTextField(
                         value = username,
                         onValueChange = { username = it },
@@ -200,11 +200,23 @@ fun UserScreen(
                                         colors = ButtonDefaults.buttonColors(containerColor = ButtonBlue),
                                         modifier = Modifier.fillMaxWidth()
                                     ) {
-                                        Text(
-                                            "View Repositories 📁",
-                                            fontWeight = FontWeight.Bold,
-                                            color = Color.White
-                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.Center
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.ic_folder),
+                                                contentDescription = null,
+                                                tint = Color.White,
+                                                modifier = Modifier.size(18.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            Text(
+                                                "View Repositories",
+                                                fontWeight = FontWeight.Bold,
+                                                color = Color.White
+                                            )
+                                        }
                                     }
                                 }
                             }

@@ -33,7 +33,8 @@ fun RepoListScreen(
     state: GitState,
     onIntent: (GitIntent) -> Unit,
     modifier: Modifier = Modifier,
-    initialUsername: String = ""
+    initialUsername: String = "",
+    onRepoClick: (String) -> Unit = {}
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
@@ -124,7 +125,10 @@ fun RepoListScreen(
                     contentPadding = PaddingValues(bottom = 16.dp)
                 ) {
                     items(filteredRepos, key = { it.id }) { repo ->
-                        RepoGridTile(repo = repo)
+                        RepoGridTile(
+                            repo = repo,
+                            onClick = { onRepoClick(repo.name) }
+                        )
                     }
                 }
             }
@@ -135,12 +139,14 @@ fun RepoListScreen(
 @Composable
 fun RepoGridTile(
     repo: ListReposDataItemModel,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = CardBgBlue),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)

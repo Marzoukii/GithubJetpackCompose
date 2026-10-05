@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.githubjetpackcompose.ui.mvi.GitIntent
 import com.example.githubjetpackcompose.ui.mvi.GitState
+import com.example.githubjetpackcompose.ui.screen.RepoDetailScreen
 import com.example.githubjetpackcompose.ui.screen.RepoListScreen
 import com.example.githubjetpackcompose.ui.screen.UserScreen
 import kotlinx.serialization.Serializable
@@ -18,6 +19,9 @@ object Login
 
 @Serializable
 data class RepoList(val username: String)
+
+@Serializable
+data class RepoDetail(val username: String, val repoName: String)
 
 @Composable
 fun AppNavigation(
@@ -47,7 +51,21 @@ fun AppNavigation(
             RepoListScreen(
                 state = state,
                 onIntent = onIntent,
-                initialUsername = route.username
+                initialUsername = route.username,
+                onRepoClick = { repoName ->
+                    navController.navigate(RepoDetail(username = route.username, repoName = repoName))
+                }
+            )
+        }
+
+        composable<RepoDetail> { backStackEntry ->
+            val route: RepoDetail = backStackEntry.toRoute()
+            RepoDetailScreen(
+                state = state,
+                onIntent = onIntent,
+                username = route.username,
+                repoName = route.repoName,
+                onBack = { navController.popBackStack() }
             )
         }
     }
