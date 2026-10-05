@@ -3,22 +3,21 @@ package com.example.githubjetpackcompose.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.example.githubjetpackcompose.ui.mvi.GitIntent
 import com.example.githubjetpackcompose.ui.mvi.GitState
 import com.example.githubjetpackcompose.ui.screen.RepoListScreen
 import com.example.githubjetpackcompose.ui.screen.UserScreen
+import kotlinx.serialization.Serializable
 
-sealed class Screen(val route: String) {
-    object User : Screen("user_screen")
-    object RepoList : Screen("repo_list_screen/{username}") {
-        fun createRoute(username: String) = "repo_list_screen/$username"
-    }
-}
+@Serializable
+object Login
+
+@Serializable
+data class RepoList(val username: String)
 
 @Composable
 fun AppNavigation(
@@ -29,31 +28,26 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.User.route,
+        startDestination = Login,
         modifier = modifier
     ) {
-        composable(route = Screen.User.route) {
+        composable<Login> {
             UserScreen(
                 state = state,
                 onIntent = onIntent,
                 onNavigateToRepos = { username ->
                     onIntent(GitIntent.FetchUserRepositories(username))
-                    navController.navigate(Screen.RepoList.createRoute(username))
+                    navController.navigate(RepoList(username = username))
                 }
             )
         }
 
-        composable(
-            route = Screen.RepoList.route,
-            arguments = listOf(
-                navArgument("username") { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val username = backStackEntry.arguments?.getString("username") ?: "octocat"
+        composable<RepoList> { backStackEntry ->
+            val route: RepoList = backStackEntry.toRoute()
             RepoListScreen(
                 state = state,
                 onIntent = onIntent,
-                initialUsername = username
+                initialUsername = route.username
             )
         }
     }

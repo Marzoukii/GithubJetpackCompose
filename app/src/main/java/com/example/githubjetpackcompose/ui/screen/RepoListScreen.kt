@@ -33,7 +33,7 @@ fun RepoListScreen(
     state: GitState,
     onIntent: (GitIntent) -> Unit,
     modifier: Modifier = Modifier,
-    initialUsername: String = "octocat"
+    initialUsername: String = ""
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
