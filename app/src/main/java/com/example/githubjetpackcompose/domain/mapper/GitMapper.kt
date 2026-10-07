@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class GitMapper @Inject constructor() {
 
-    fun toUserDataModel(json: UserDataJson?): UserDataModel? {
+    fun toUserDataModel(json: UserDataJson?): UserDataModel {
         return UserDataModel(
             avatar_url = json?.avatar_url,
             bio = json?.bio,
@@ -49,7 +49,7 @@ class GitMapper @Inject constructor() {
         )
     }
 
-    fun toOwnerModel(json: OwnerJson?): OwnerModel? {
+    fun toOwnerModel(json: OwnerJson?): OwnerModel {
         return OwnerModel(
             avatar_url = json?.avatar_url,
             events_url = json?.events_url,
@@ -72,8 +72,8 @@ class GitMapper @Inject constructor() {
         )
     }
 
-    fun toListReposDataItemModel(json: ListReposDataItemJson?): ListReposDataItemModel? {
-        val ownerModel = toOwnerModel(json?.owner) ?: OwnerModel()
+    fun toListReposDataItemModel(json: ListReposDataItemJson?): ListReposDataItemModel {
+        val ownerModel = toOwnerModel(json?.owner)
         return ListReposDataItemModel(
             allow_forking = json?.allow_forking ?: false,
             archive_url = json?.archive_url,
@@ -158,11 +158,11 @@ class GitMapper @Inject constructor() {
     }
 
     fun toListReposDataItemModel(jsonList: List<ListReposDataItemJson>?): List<ListReposDataItemModel>? {
-        return jsonList?.mapNotNull { toListReposDataItemModel(it) }
+        return jsonList?.map { toListReposDataItemModel(it) }
     }
 
-    fun toDetailsDepotDataModel(json: DetailsDepotDataJson?): DetailsDepotDataModel? {
-        val ownerModel = toOwnerModel(json?.owner) ?: OwnerModel()
+    fun toDetailsDepotDataModel(json: DetailsDepotDataJson?): DetailsDepotDataModel {
+        val ownerModel = toOwnerModel(json?.owner) 
         return DetailsDepotDataModel(
             allow_forking = json?.allow_forking ?: false,
             archive_url = json?.archive_url,
