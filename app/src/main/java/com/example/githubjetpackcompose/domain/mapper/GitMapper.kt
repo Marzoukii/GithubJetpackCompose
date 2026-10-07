@@ -162,7 +162,7 @@ class GitMapper @Inject constructor() {
     }
 
     fun toDetailsDepotDataModel(json: DetailsDepotDataJson?): DetailsDepotDataModel {
-        val ownerModel = toOwnerModel(json?.owner) 
+        val ownerModel = toOwnerModel(json?.owner)
         return DetailsDepotDataModel(
             allow_forking = json?.allow_forking ?: false,
             archive_url = json?.archive_url,
