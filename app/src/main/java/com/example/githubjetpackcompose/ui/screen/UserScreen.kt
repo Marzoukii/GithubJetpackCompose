@@ -41,7 +41,6 @@ fun UserScreen(
             modifier = Modifier.fillMaxSize()
         )
 
-        // Main content
         Column(
             modifier = Modifier
                 .fillMaxSize()

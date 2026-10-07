@@ -131,7 +131,7 @@ fun RepoDetailScreen(
                                 Spacer(modifier = Modifier.height(16.dp))
 
                                 Text(
-                                    text = details.name,
+                                    text = details.name.orEmpty(),
                                     fontSize = 22.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.Black,
@@ -139,7 +139,7 @@ fun RepoDetailScreen(
                                 )
 
                                 Text(
-                                    text = details.full_name,
+                                    text = details.full_name.orEmpty(),
                                     fontSize = 14.sp,
                                     color = Color.Gray,
                                     textAlign = TextAlign.Center
@@ -203,7 +203,7 @@ fun RepoDetailScreen(
                                     )
                                     DetailStatItem(
                                         label = "Branch",
-                                        value = details.default_branch,
+                                        value = details.default_branch.orEmpty(),
                                         iconRes = R.drawable.ic_branch
                                     )
                                 }

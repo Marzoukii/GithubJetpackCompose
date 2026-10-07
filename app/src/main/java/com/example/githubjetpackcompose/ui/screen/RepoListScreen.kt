@@ -50,7 +50,6 @@ fun RepoListScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Top Row with Back Button and Search Bar
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -120,7 +119,7 @@ fun RepoListScreen(
                 if (searchQuery.isBlank()) {
                     allRepos
                 } else {
-                    allRepos.filter { it.name.contains(searchQuery, ignoreCase = true) }
+                    allRepos.filter { it.name.orEmpty().contains(searchQuery, ignoreCase = true) }
                 }
             }
 
@@ -145,7 +144,7 @@ fun RepoListScreen(
                     items(filteredRepos, key = { it.id }) { repo ->
                         RepoGridTile(
                             repo = repo,
-                            onClick = { onRepoClick(repo.name) }
+                            onClick = { repo.name?.let(onRepoClick) }
                         )
                     }
                 }
@@ -185,7 +184,7 @@ fun RepoGridTile(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = repo.name,
+                text = repo.name.orEmpty(),
                 color = Color.White,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
